@@ -8,10 +8,9 @@ namespace Core.Services
 {
     public interface IService<TEntity> where TEntity: class
     {
-        Task<TEntity> GetByIdAsync(int id);
-        Task<IEnumerable<TEntity>> GetAllAsync();
-        Task AddAsync(TEntity entity);
+
+        Task<TEntity> AddAsync(TEntity entity);
         void Remove(int id);
-        TEntity Update(TEntity entity);
+     
     }
 }

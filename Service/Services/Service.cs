@@ -20,10 +20,11 @@ namespace Service.Services
             _repository = repository;
         }
 
-        public async Task AddAsync(TEntity entity)
+        public async Task<TEntity> AddAsync(TEntity entity)
         {
-           await _repository.AddAsync(entity);
+            await _repository.AddAsync(entity);
             await _unitOfWork.SaveChangesAsync();
+            return entity;
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync()
@@ -31,10 +32,7 @@ namespace Service.Services
             return await _repository.GetAllAsync();
         }
 
-        public async Task<TEntity> GetByIdAsync(int id)
-        {
-            return await _repository.GetByIdAsync(id); 
-        }
+      
 
         public void Remove(int id)
         {
@@ -42,13 +40,6 @@ namespace Service.Services
             _unitOfWork.SaveChanges();
         }
 
-        public TEntity Update(TEntity entity)
-        {
-             var resultEntity=_repository.Update(entity);
-
-            _unitOfWork.SaveChanges();
-
-            return resultEntity;
-        }
+       
     }
 }

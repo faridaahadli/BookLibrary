@@ -20,5 +20,19 @@ namespace Service.Services
         {
             return await _unitOfWork.Books.GetBooksByGenre(genreId);
         }
+
+        public async Task<Book> GetByIdAsync(int id)
+        {
+            return await _unitOfWork.Books.GetByIdAsync(id);
+        }
+        
+        public Book Update(Book entity)
+        {
+            var resultEntity = _unitOfWork.Books.Update(entity);
+
+            _unitOfWork.SaveChanges();
+
+            return resultEntity;
+        }
     }
 }

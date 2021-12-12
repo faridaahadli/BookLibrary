@@ -1,6 +1,7 @@
 ﻿using Core;
 using Core.Repositories;
 using Core.Services;
+using Core.UnitOfWork;
 using Data.UnitOfWork;
 using System;
 using System.Collections.Generic;
@@ -12,8 +13,8 @@ namespace Service.Services
 {
     public class GenreService : Service<Genre>, IGenreService
     {
-        public GenreService(UnitOfWork unitOfWork, IRepository<Genre> repository)
-              : base(unitOfWork, repository)
+        public GenreService(IUnitOfWork unitOfWork, IRepository<Genre> repository)
+          : base(unitOfWork, repository)
         { }
 
         public async Task<IEnumerable<Genre>> GetTopFiveGenre()

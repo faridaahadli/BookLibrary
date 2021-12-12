@@ -10,8 +10,8 @@ namespace Core
         public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public bool IsActive { get; set; }
-        public DateTime CreateDate { get; set; }
+        public bool IsActive { get; set; } = true;
+        public DateTime CreateDate { get; set; } = DateTime.Now;
         public virtual ICollection<BookAuthor> BookAuthors { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace Core.Models
         public virtual Book Book { get; set; }
         public int AuthorId { get; set; }
         public virtual Author Author { get; set; }
-        public bool IsActive { get; set; }
-        public DateTime CreateDate { get; set; }
+        public bool IsActive { get; set; } = true;
+        public DateTime CreateDate { get; set; } = DateTime.Now;
     }
 }

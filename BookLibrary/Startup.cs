@@ -35,6 +35,9 @@ namespace BookLibrary
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddAutoMapper(typeof(Startup));
+
+
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseMySQL(Configuration.GetConnectionString("DefaultConnection"));
@@ -43,18 +46,24 @@ namespace BookLibrary
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped(typeof(IService<>), typeof(Service<>));
 
-            services.AddScoped<IBookService, BookService>();
-            services.AddScoped<IBookRepository, BookRepository>();
+
 
             services.AddScoped<IAuthorService, AuthorService>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
+
+
+
+            services.AddScoped<IBookService, BookService>();
+            services.AddScoped<IBookRepository, BookRepository>();
 
             services.AddScoped<IGenreService, GenreService>();
             services.AddScoped<IGenreRepository, GenreRepository>();
 
 
-
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            
+
+
 
 
 
