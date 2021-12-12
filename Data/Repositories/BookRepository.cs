@@ -14,7 +14,7 @@ namespace Data.Repositories
 
         private AppDbContext appDbContext { get => _context as AppDbContext; }
 
-        public BookRepository(DbContext context) : base(context)
+        public BookRepository(AppDbContext context) : base(context)
         {}
 
         public async Task<IEnumerable<Book>> GetBooksByGenre(int genreId)

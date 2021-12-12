@@ -13,9 +13,9 @@ namespace Data.Repositories
     {
         private AppDbContext appDbContext { get => _context as AppDbContext; }
 
-        public GenreRepository(DbContext context) : base(context)
+        public GenreRepository(AppDbContext context) : base(context)
         { }
-        public async Task<IEnumerable<Genre>> GetTopFiveGenre()
+        public async Task<IEnumerable<Genre>> GetTopFiveGenres()
         {
             return await appDbContext.Genres.Include(x=>x.BookGenres)
                  .OrderByDescending(x => x.BookGenres.Where(z => z.IsActive).Count()).Take(5)

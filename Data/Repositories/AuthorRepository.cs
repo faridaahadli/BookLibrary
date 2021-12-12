@@ -13,7 +13,7 @@ namespace Data.Repositories
     {
         private AppDbContext appDbContext { get => _context as AppDbContext; }
 
-        public AuthorRepository(DbContext context):base(context)
+        public AuthorRepository(AppDbContext context):base(context)
         {}
 
         public async Task<IEnumerable<Author>> GetTopFiveAuthor()

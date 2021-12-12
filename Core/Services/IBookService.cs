@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.Services
 {
-    interface IBookService:IService<Book>
+    public interface IBookService:IService<Book>
     {
         Task<IEnumerable<Book>> GetBooksByGenre(int genreId);
     }

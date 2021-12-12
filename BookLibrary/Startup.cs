@@ -1,5 +1,8 @@
+using Core.Repositories;
+using Core.Services;
 using Core.UnitOfWork;
 using Data;
+using Data.Repositories;
 using Data.UnitOfWork;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Service.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +40,24 @@ namespace BookLibrary
                 options.UseMySQL(Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped(typeof(IService<>), typeof(Service<>));
+
+            services.AddScoped<IBookService, BookService>();
+            services.AddScoped<IBookRepository, BookRepository>();
+
+            services.AddScoped<IAuthorService, AuthorService>();
+            services.AddScoped<IAuthorRepository, AuthorRepository>();
+
+            services.AddScoped<IGenreService, GenreService>();
+            services.AddScoped<IGenreRepository, GenreRepository>();
+
+
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

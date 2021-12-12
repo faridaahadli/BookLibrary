@@ -8,6 +8,6 @@ namespace Core.Repositories
 {
     public interface IGenreRepository:IRepository<Genre>
     {
-        Task<IEnumerable<Genre>> GetTopFiveGenre();
+        Task<IEnumerable<Genre>> GetTopFiveGenres();
     }
 }

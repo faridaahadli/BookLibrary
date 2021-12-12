@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.Services
 {
-    interface IAuthorService:IService<Author>
+    public interface IAuthorService:IService<Author>
     {
         Task<IEnumerable<Author>> GetTopFiveAuthor();
     }
