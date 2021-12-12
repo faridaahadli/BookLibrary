@@ -13,6 +13,7 @@ namespace Data.Configurations
     {
         public void Configure(EntityTypeBuilder<BookAuthor> builder)
         {
+            builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Property(x => x.AuthorId).IsRequired();
             builder.Property(x => x.BookId).IsRequired();
         }

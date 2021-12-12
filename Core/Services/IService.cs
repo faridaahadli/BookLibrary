@@ -11,7 +11,7 @@ namespace Core.Services
         Task<TEntity> GetByIdAsync(int id);
         Task<IEnumerable<TEntity>> GetAllAsync();
         Task AddAsync(TEntity entity);
-        void Remove(TEntity entity);
-        Task<TEntity> UpdateAsync(TEntity entity);
+        void Remove(int id);
+        TEntity Update(TEntity entity);
     }
 }

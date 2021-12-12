@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.Repositories
 {
-    interface IAuthorRepository:IRepository<Author>
+   public interface IAuthorRepository:IRepository<Author>
     {
         Task<IEnumerable<Author>> GetTopFiveAuthor();
     }

@@ -13,6 +13,7 @@ namespace Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Book> builder)
         {
+            builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Property(x => x.Title).IsRequired().HasMaxLength(50);
             builder.Property(x => x.Description).IsRequired();
         }

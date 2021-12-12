@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Core.Repositories
 {
-    interface IBookRepository:IRepository<Book>
+    public interface IBookRepository:IRepository<Book>
     {
-        Task<Book> GetBookByGenre(int genreId);
+        Task<IEnumerable<Book>> GetBooksByGenre(int genreId);
     }
 }

@@ -8,6 +8,6 @@ namespace Core.Services
 {
     interface IBookService:IService<Book>
     {
-        Task<Book> GetBookByGenre(int genreId);
+        Task<IEnumerable<Book>> GetBooksByGenre(int genreId);
     }
 }
