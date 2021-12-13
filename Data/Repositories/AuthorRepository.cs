@@ -20,7 +20,7 @@ namespace Data.Repositories
         public async Task<IEnumerable<Author>> GetTopEntitiesByBook()
         {
             return await appDbContext.Authors.Include(x => x.BookAuthors)
-                .OrderByDescending(x => x.BookAuthors.Where(z => z.IsActive).Count()).Take(1)
+                .OrderByDescending(x => x.BookAuthors.Where(z => z.IsActive).Count()).Take(5)
                 .ToListAsync();
         }
     }
