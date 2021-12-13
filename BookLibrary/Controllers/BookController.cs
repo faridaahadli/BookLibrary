@@ -2,6 +2,7 @@
 using BookLibrary.DTOs;
 using Core;
 using Core.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace BookLibrary.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class BookController : ControllerBase
