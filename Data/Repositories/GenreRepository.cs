@@ -15,11 +15,12 @@ namespace Data.Repositories
 
         public GenreRepository(AppDbContext context) : base(context)
         { }
-        public async Task<IEnumerable<Genre>> GetTopFiveGenres()
+     
+        public async Task<IEnumerable<Genre>> GetTopEntitiesByBook()
         {
-            return await appDbContext.Genres.Include(x=>x.BookGenres)
-                 .OrderByDescending(x => x.BookGenres.Where(z => z.IsActive).Count()).Take(5)
-                 .ToListAsync();
+            return await appDbContext.Genres.Include(x => x.BookGenres)
+               .OrderByDescending(x => x.BookGenres.Where(z => z.IsActive).Count()).Take(1)
+               .ToListAsync();
         }
     }
 }

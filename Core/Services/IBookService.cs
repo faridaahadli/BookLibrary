@@ -8,8 +8,9 @@ namespace Core.Services
 {
     public interface IBookService:IService<Book>
     {
-        Task<IEnumerable<Book>> GetBooksByGenre(int genreId);
-        Task<Book> GetByIdAsync(int id);
-        Book Update(Book entity);
+        public IEnumerable<Book> GetBooksByGenre(int genreId);
+        public Task<Book> GetByIdAsync(int id);
+        public Book Update(Book entity);
+        public Task Remove(int id);
     }
 }

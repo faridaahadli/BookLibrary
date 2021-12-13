@@ -16,19 +16,31 @@ namespace Service.Services
             :base(unitOfWork,repository)
         {}
 
-        public async Task<IEnumerable<Book>> GetBooksByGenre(int genreId)
+        public  IEnumerable<Book> GetBooksByGenre(int genreId)
         {
-            return await _unitOfWork.Books.GetBooksByGenre(genreId);
+            return  _unitOfWork.Books.GetBooksByGenre(genreId);
         }
 
         public async Task<Book> GetByIdAsync(int id)
         {
             return await _unitOfWork.Books.GetByIdAsync(id);
         }
-        
+
+       
+
+        public async Task Remove(int id)
+        {
+            await  _unitOfWork.Books.Remove(id);
+
+           await _unitOfWork.SaveChangesAsync();
+
+        }
+
         public Book Update(Book entity)
         {
             var resultEntity = _unitOfWork.Books.Update(entity);
+
+         
 
             _unitOfWork.SaveChanges();
 

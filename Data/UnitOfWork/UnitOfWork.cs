@@ -1,4 +1,5 @@
-﻿using Core.Repositories;
+﻿using Core;
+using Core.Repositories;
 using Core.UnitOfWork;
 using Data.Repositories;
 using System;

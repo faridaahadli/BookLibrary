@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.Services
 {
-    public interface IGenreService:IService<Genre>
+  public  interface IGenreService:IService<Genre>,IAuthorGenreService<Genre>
     {
-        Task<IEnumerable<Genre>> GetTopFiveGenre();
     }
 }

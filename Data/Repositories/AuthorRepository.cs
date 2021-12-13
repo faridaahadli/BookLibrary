@@ -9,17 +9,18 @@ using System.Threading.Tasks;
 
 namespace Data.Repositories
 {
-    public class AuthorRepository : Repository<Author>, IAuthorRepository
+    public class AuthorRepository : Repository<Author>,IAuthorRepository
     {
         private AppDbContext appDbContext { get => _context as AppDbContext; }
 
         public AuthorRepository(AppDbContext context):base(context)
         {}
 
-        public async Task<IEnumerable<Author>> GetTopFiveAuthor()
+       
+        public async Task<IEnumerable<Author>> GetTopEntitiesByBook()
         {
-            return await appDbContext.Authors.Include(x=>x.BookAuthors)
-                .OrderByDescending(x=>x.BookAuthors.Where(z=>z.IsActive).Count()).Take(5)  
+            return await appDbContext.Authors.Include(x => x.BookAuthors)
+                .OrderByDescending(x => x.BookAuthors.Where(z => z.IsActive).Count()).Take(1)
                 .ToListAsync();
         }
     }

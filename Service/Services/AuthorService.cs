@@ -16,9 +16,9 @@ namespace Service.Services
             :base(unitOfWork,repository)
         {}
 
-        public async Task<IEnumerable<Author>> GetTopFiveAuthor()
+        public async Task<IEnumerable<Author>> GetTopEntitiesByBook()
         {
-            return await _unitOfWork.Authors.GetTopFiveAuthor();
+            return await _unitOfWork.Authors.GetTopEntitiesByBook();
         }
     }
 }

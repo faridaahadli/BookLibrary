@@ -17,9 +17,9 @@ namespace Service.Services
           : base(unitOfWork, repository)
         { }
 
-        public async Task<IEnumerable<Genre>> GetTopFiveGenre()
+        public async  Task<IEnumerable<Genre>> GetTopEntitiesByBook()
         {
-            return await _unitOfWork.Genres.GetTopFiveGenres();
+           return await _unitOfWork.Genres.GetTopEntitiesByBook();
         }
     }
 }

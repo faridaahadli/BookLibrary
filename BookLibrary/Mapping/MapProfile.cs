@@ -30,7 +30,23 @@ namespace BookLibrary.Mapping
 
             CreateMap<BookGenre, GenreUpdDto>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Genre.Name));
-                
+
+            CreateMap<AuthorInsDto, Author>();
+               
+
+            CreateMap<AuthorUpdDto, Author>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.AuthorId));
+
+            CreateMap<Author, AuthorUpdDto>()
+              .ForMember(dest => dest.AuthorId, opt => opt.MapFrom(src => src.Id));
+
+            CreateMap<GenreInsDto, Genre>();
+
+            CreateMap<GenreUpdDto, Genre>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.GenreId));
+
+            CreateMap<Genre, GenreUpdDto>()
+              .ForMember(dest => dest.GenreId, opt => opt.MapFrom(src => src.Id));
 
         }
     }

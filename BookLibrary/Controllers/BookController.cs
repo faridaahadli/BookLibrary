@@ -37,11 +37,11 @@ namespace BookLibrary.Controllers
         }
 
         [HttpGet("genre/{id}")]
-        public async Task<IActionResult> GetBookByGenre(int id)
+        public IActionResult GetBookByGenre(int id)
         {
 
-            var books= await _bookService.GetBooksByGenre(id);
-            return Ok(books);
+            var books= _bookService.GetBooksByGenre(id);
+            return Ok(_mapper.Map<IEnumerable<Book>,IEnumerable<BookDto>>(books));
         }
 
 

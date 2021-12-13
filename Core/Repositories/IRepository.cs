@@ -8,8 +8,6 @@ namespace Core.Repositories
 {
   public interface IRepository<TEntity> where TEntity : class
     {
-        Task<IEnumerable<TEntity>> GetAllAsync();
-        Task AddAsync(TEntity entity);
-        void Remove(int id);
+        Task AddAsync(TEntity entity);      
     }
 }

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,21 +26,6 @@ namespace Data.Repositories
         public async Task AddAsync(TEntity entity)
         {
             await _dbSet.AddAsync(entity);
-        }
-
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
-        {
-           return await _dbSet.ToListAsync();
-        }
-
-    
-        public void Remove(int id)
-        {
-            var obj=_dbSet.Find(id);
-
-            _dbSet.GetType().GetProperty("IsActive").SetValue(obj, false);
-            
-
         }
 
        

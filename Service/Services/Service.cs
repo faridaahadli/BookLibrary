@@ -27,18 +27,15 @@ namespace Service.Services
             return entity;
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
-        {
-            return await _repository.GetAllAsync();
-        }
+        
 
       
 
-        public void Remove(int id)
-        {
-            _repository.Remove(id);
-            _unitOfWork.SaveChanges();
-        }
+        //public void Remove(int id)
+        //{
+        //    _repository.Remove(id);
+        //    _unitOfWork.SaveChanges();
+        //}
 
        
     }

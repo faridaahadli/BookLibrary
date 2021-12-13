@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.Repositories
 {
-    public interface IGenreRepository:IRepository<Genre>
+   public interface IGenreRepository:IRepository<Genre>,IAuthorGenreRepository<Genre>
     {
-        Task<IEnumerable<Genre>> GetTopFiveGenres();
     }
 }

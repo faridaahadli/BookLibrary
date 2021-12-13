@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Core.Repositories
 {
-    public interface IAuthorRepository:IRepository<Author>,IAuthorGenreRepository<Author>
+   public interface IAuthorGenreRepository<TEntity> where TEntity :class
     {
+        Task<IEnumerable<TEntity>> GetTopEntitiesByBook();
     }
 }

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Core.Services
 {
-    public interface IAuthorService:IService<Author>,IAuthorGenreService<Author>
+    public interface IAuthorGenreService<TEntity> where TEntity : class 
     {
+        Task<IEnumerable<TEntity>> GetTopEntitiesByBook();
     }
 }

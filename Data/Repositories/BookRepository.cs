@@ -4,12 +4,13 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Data.Repositories
 {
-    public class BookRepository : Repository<Book>, IBookRepository
+    public class BookRepository : Repository<Book>,IBookRepository
     {
 
         private AppDbContext appDbContext { get => _context as AppDbContext; }
@@ -17,16 +18,26 @@ namespace Data.Repositories
         public BookRepository(AppDbContext context) : base(context)
         {}
 
-        public async Task<IEnumerable<Book>> GetBooksByGenre(int genreId)
+        public IEnumerable<Book> GetBooksByGenre(int genreId)
         {
+            var booksGenre = appDbContext.BookGenres
+                           .Include(x => x.Book)
+                           .ThenInclude(x => x.BookAuthors)
+                           .Include(x=>x.Book)
+                           .ThenInclude(x=>x.BookGenres)
+                           .Where(x => x.GenreId == genreId);
 
-            var books = from book in appDbContext.Books
-                        from genre in book.BookGenres
-                        where genre.GenreId == genreId
-                        select book;
-            return books;
-           // return await appDbContext.Books.Include(x => x.BookGenres.Where(z => z.GenreId == genreId)).ToListAsync();
-                
+            List<Book> books = new List<Book>();
+
+            booksGenre.ToList().ForEach(x => books.Add(x.Book));
+            
+             foreach(var item in books)
+            {
+                item.BookGenres.ToList().ForEach(x => x.Genre = appDbContext.Genres.Find(x.GenreId));
+                item.BookAuthors.ToList().ForEach(x => x.Author = appDbContext.Authors.Find(x.AuthorId));
+            }
+            return books ;
+
         }
 
         public async Task<Book> GetByIdAsync(int id)
@@ -46,7 +57,8 @@ namespace Data.Repositories
                     .Any(x => x.BookId == entity.Id && x.AuthorId == item.AuthorId && x.IsActive);
 
                 if (!checkForItemExistance)
-                    appDbContext.Entry(item).State = EntityState.Modified;
+                    appDbContext.Entry(item).State = EntityState.Added;
+                item.Book = null;
 
             }
 
@@ -56,20 +68,43 @@ namespace Data.Repositories
                     .Any(x => x.BookId == entity.Id && x.GenreId == item.GenreId && x.IsActive);
 
                 if (!checkForItemExistance)
-                    appDbContext.Entry(item).State = EntityState.Modified;
+                    appDbContext.Entry(item).State = EntityState.Added;
+                item.Book = null;
  
             }
 
+            foreach (var item in appDbContext.BookAuthors.Where(x => x.BookId == entity.Id).ToList())
+            {
+                if (!entity.BookAuthors.Any(z => z.AuthorId == item.AuthorId && z.IsActive))
+                    item.IsActive = false;
 
-            //appDbContext.BookAuthors
-            //    .Where(
-            //     x => !entity.BookAuthors.Any(m => m.AuthorId == x.AuthorId));
-
-            //appDbContext.BookGenres
-            //    .Where(
-            //     x => !entity.BookGenres.Any(m => m.GenreId == x.GenreId));
+            }
 
             return entity;
+
+        }
+
+        //PropertyInfo
+
+        public async Task Remove(int id)
+        {
+            Book entity = await appDbContext.Books
+                .FindAsync(id);
+
+            //in case of generic 
+            //PropertyInfo propertyInfo = entity.GetType().GetProperty("IsActive");
+
+            //propertyInfo.SetValue(entity, Convert.ChangeType(false, propertyInfo.PropertyType), null);
+
+            entity.IsActive = false;
+
+            appDbContext.BookAuthors.Where(x => x.BookId == entity.Id)
+                 .ToList().ForEach(x => x.IsActive = false);
+
+            appDbContext.BookGenres.Where(x => x.BookId == entity.Id)
+                .ToList().ForEach(x => x.IsActive = false);
+
+
         }
     }
 }

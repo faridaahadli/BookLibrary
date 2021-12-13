@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using BookLibrary.DTOs.Author;
+using Core;
+using Core.Services;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,30 +16,37 @@ namespace BookLibrary.Controllers
     [ApiController]
     public class AuthorController : ControllerBase
     {
-        
-        // GET api/<AuthorController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        private readonly IAuthorService _authorService;
+        private readonly IMapper _mapper;
+
+        public AuthorController(IAuthorService authorService, IMapper mapper)
         {
-            return "value";
+            _authorService = authorService;
+            _mapper = mapper;
         }
 
-        // POST api/<AuthorController>
+        // POST api/<BookController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Post(AuthorInsDto authorDto)
         {
+
+            var author = await _authorService.AddAsync(_mapper.Map<Author>(authorDto));
+
+            return Ok();
+
         }
 
-        // PUT api/<AuthorController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // GET api/<AuthorController>/5
+        [HttpGet()]
+        //just top 5 for know
+        public async Task<IActionResult> GetTopEntities()
         {
+
+            var authors = await _authorService.GetTopEntitiesByBook();
+
+            return Ok(_mapper.Map<IEnumerable<Author>,IEnumerable<AuthorUpdDto>>(authors));
         }
 
-        // DELETE api/<AuthorController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+    
     }
 }

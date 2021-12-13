@@ -1,3 +1,4 @@
+using Core;
 using Core.Repositories;
 using Core.Services;
 using Core.UnitOfWork;
@@ -46,18 +47,21 @@ namespace BookLibrary
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped(typeof(IService<>), typeof(Service<>));
 
-
-
             services.AddScoped<IAuthorService, AuthorService>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
+
+
+
+            services.AddScoped<IGenreService, GenreService>();
+            services.AddScoped<IGenreRepository, GenreRepository>();
 
 
 
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<IBookRepository, BookRepository>();
 
-            services.AddScoped<IGenreService, GenreService>();
-            services.AddScoped<IGenreRepository, GenreRepository>();
+            //services.AddScoped<IGenreService, GenreService>();
+            //services.AddScoped<IGenreRepository, GenreRepository>();
 
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();

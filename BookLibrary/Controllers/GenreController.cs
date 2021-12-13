@@ -1,4 +1,7 @@
-﻿using Core.Services;
+﻿using AutoMapper;
+using BookLibrary.DTOs.Genre;
+using Core;
+using Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,41 +16,35 @@ namespace BookLibrary.Controllers
     [ApiController]
     public class GenreController : ControllerBase
     {
-        private readonly IGenreService _genreService;
-        public GenreController(IGenreService genreService)
+        private readonly IGenreService _GenreService;
+        private readonly IMapper _mapper;
+
+        public GenreController(IGenreService GenreService, IMapper mapper)
         {
-            _genreService = genreService;
+            _GenreService = GenreService;
+            _mapper = mapper;
         }
-        // GET: api/<GenreController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+
+        // POST api/<BookController>
+        [HttpPost]
+        public async Task<IActionResult> Post(GenreInsDto GenreDto)
         {
-            return new string[] { "value1", "value2" };
+
+            var Genre = await _GenreService.AddAsync(_mapper.Map<Genre>(GenreDto));
+
+            return Ok();
+
         }
 
         // GET api/<GenreController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet()]
+        //just top 5 for know
+        public async Task<IActionResult> GetTopEntities()
         {
-            return "value";
-        }
 
-        // POST api/<GenreController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
+            var Genres = await _GenreService.GetTopEntitiesByBook();
 
-        // PUT api/<GenreController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<GenreController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return Ok(_mapper.Map<IEnumerable<Genre>, IEnumerable<GenreUpdDto>>(Genres));
         }
     }
 }
