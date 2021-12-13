@@ -73,12 +73,7 @@ namespace Data.Repositories
  
             }
 
-            foreach (var item in appDbContext.BookAuthors.Where(x => x.BookId == entity.Id).ToList())
-            {
-                if (!entity.BookAuthors.Any(z => z.AuthorId == item.AuthorId && z.IsActive))
-                    item.IsActive = false;
-
-            }
+           
 
             return entity;
 
