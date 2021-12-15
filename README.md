@@ -1,7 +1,5 @@
 # BookLibrary
-Ilk once 2 gun erzinde UnitOfWork ve Repsoitory pattern oyrenerek yazmaga calisdigim 
-ucun buttun funksionalliqlari ve duzgun dokumentasiya mentiqini catdira bilmediyimi ve qarsilasacaginiz errorlarin bir coxunun(null-lari check etmek kimi ve s.) 
-eslinde aglimda oldugunu sadece vaxt catdira bilmediyimi qeyd edim.
+
 
 BookController APIs
 
